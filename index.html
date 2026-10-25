@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Lesdoelen-compositie H1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: een De Stijl-compositie. Zwarte lijnen, primaire vlakken; elk lesdoel is een vlak dat inkleurt naarmate je het beheerst. Bewust één licht palet. */
+:root{
+  --paper:#fbfaf6;
+  --ink:#141414;
+  --red:#d42a1d;
+  --yellow:#f2c412;
+  --blue:#1e4d9e;
+  --grey:#cdcec7;
+  --muted:#5a5a54;
+  --ok:#1b7a45;
+  --ok-soft:#dcefe3;
+  --bad-soft:#f8dcd8;
+  --line:6px;
+  --thin:3px;
+  --f-display:"Archivo","Arial Black","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--paper);color:var(--ink)}
+body{font-family:var(--f-body);font-size:16px;line-height:1.5}
+button{font:inherit;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.disp{font-family:var(--f-display);font-stretch:118%;font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:.95}
+.eyebrow{font-family:var(--f-display);font-stretch:100%;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:var(--thin) solid var(--ink);background:var(--paper);padding:10px 16px;font-weight:700;cursor:pointer;min-height:44px;text-align:center}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{background:var(--blue);border-color:var(--blue)}
+.btn.yellow{background:var(--yellow)}
+.btn.yellow:hover{background:var(--ink);color:var(--paper)}
+.btn:disabled{opacity:.4;cursor:not-allowed;background:var(--paper);color:var(--ink)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.backlink{background:none;border:0;padding:8px 0;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+
+/* ---------- Compositie ---------- */
+.comp{
+  display:grid;gap:var(--line);background:var(--ink);border:var(--line) solid var(--ink);
+  grid-template-columns:repeat(8,minmax(0,1fr));grid-auto-rows:minmax(122px,auto);
+  grid-template-areas:
+    "t   t   t   p2a p2a p2a p2b p1a"
+    "t   t   t   p2a p2a p2a p2b p1b"
+    "p3a p3a p2c p2d p2d p2e p2e p1c"
+    "p3b p3c p2c p4a p4a p4a p5a p5a"
+    "p3b p3c p2c p4b p4b p4b p5b p5b";
+}
+.tblock{grid-area:t;background:var(--paper);padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-width:0;container-type:inline-size}
+.tblock h1{margin:0;font-size:clamp(22px,10.5cqi,46px);font-stretch:108%;text-wrap:balance}
+.tblock p{margin:0;max-width:40ch;color:var(--ink)}
+.tmeta{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:end;justify-content:space-between}
+.score{font-family:var(--f-display);font-stretch:100%;font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
+.score b{font-size:28px;font-weight:900}
+.namefield{display:flex;flex-direction:column;gap:2px}
+.namefield label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.namefield input{border:0;border-bottom:var(--thin) solid var(--ink);background:transparent;font:inherit;font-weight:700;padding:4px 0;width:min(220px,60vw)}
+.namefield input:focus{outline:none;border-bottom-color:var(--blue)}
+
+.blk{position:relative;background:var(--paper);border:0;padding:12px 12px 10px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;gap:10px;cursor:pointer;color:var(--ink);overflow:hidden;min-width:0;--h:0%}
+.blk::before{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--h);background:var(--c);transition:height .9s cubic-bezier(.2,.8,.2,1)}
+.blk>*{position:relative}
+.blk[data-l="1"]{--h:14%}
+.blk[data-l="2"]{--h:34%}
+.blk[data-l="3"]{--h:100%}
+.blk[data-l="3"].lt{color:var(--paper)}
+.blk:hover{box-shadow:inset 0 0 0 4px var(--ink)}
+.blk[data-l="3"]:hover{box-shadow:inset 0 0 0 4px var(--paper)}
+.blk:focus-visible{outline:4px solid var(--blue);outline-offset:-10px}
+.blk .code{font-family:var(--f-display);font-stretch:100%;font-weight:800;font-size:13px;letter-spacing:.06em}
+.blk .lbl{display:block;font-weight:700;font-size:15px;line-height:1.22;hyphens:auto;overflow-wrap:break-word;margin-top:2px}
+.pips{display:inline-flex;gap:5px;background:var(--paper);padding:4px;align-self:flex-start}
+.pip{width:12px;height:12px;border:2px solid var(--ink)}
+.pip.on{background:var(--ink)}
+.blk[data-l="3"] .pips{outline:2px solid var(--ink)}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 0 0;font-size:14px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:14px;height:14px;border:2px solid var(--ink)}
+
+.modes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--line);background:var(--ink);border:var(--line) solid var(--ink);margin-top:28px}
+.mode{background:var(--paper);border:0;padding:18px 18px 16px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-width:0}
+.mode h3{margin:0;font-family:var(--f-display);font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:20px;line-height:1}
+.mode p{margin:0;font-size:14px;color:inherit}
+.mode.y{background:var(--yellow)}
+.mode:hover{background:var(--ink);color:var(--paper)}
+.foot{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted)}
+.foot p{margin:0;max-width:62ch}
+
+/* ---------- Oefenen ---------- */
+.frame{border:var(--line) solid var(--ink);background:var(--ink);display:grid;gap:var(--line)}
+.ghead{display:grid;grid-template-columns:96px minmax(0,1fr);gap:var(--line)}
+.gcolor{background:var(--c);display:flex;align-items:flex-end;padding:10px;font-family:var(--f-display);font-weight:900;font-stretch:110%;font-size:28px}
+.gcolor.lt{color:var(--paper)}
+.gtext{background:var(--paper);padding:16px 20px;min-width:0}
+.gtext h2{margin:4px 0 0;font-size:clamp(19px,2.4vw,24px);line-height:1.25;text-wrap:balance}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--thin);background:var(--ink)}
+.step{background:var(--paper);border:0;padding:10px 12px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0}
+.step .sn{font-family:var(--f-display);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.step .st{font-weight:700;font-size:15px;line-height:1.2}
+.step.on{background:var(--ink);color:var(--paper)}
+.step.lock{color:var(--muted);cursor:not-allowed;background:var(--paper)}
+.step.got .sn::after{content:" ■"}
+.panel{background:var(--paper);padding:22px clamp(16px,3vw,32px) 26px;min-height:340px;min-width:0}
+.prog{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted);margin-bottom:14px;font-variant-numeric:tabular-nums}
+.bar{flex:1;height:10px;border:2px solid var(--ink);background:var(--paper);min-width:60px}
+.bar>i{display:block;height:100%;background:var(--ink);width:0;transition:width .3s}
+.q{font-size:clamp(19px,2.3vw,23px);font-weight:700;line-height:1.3;margin:0 0 6px;max-width:46ch;text-wrap:pretty}
+.qhint{margin:0 0 14px;color:var(--muted);font-size:14px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.opt{border:var(--thin) solid var(--ink);background:var(--paper);padding:14px 16px;text-align:left;cursor:pointer;font-size:16px;line-height:1.35;min-height:56px}
+.opt:hover:not(:disabled){background:var(--yellow)}
+.opt.sel{background:var(--ink);color:var(--paper)}
+.opt.right{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.opt.wrong{background:var(--red);border-color:var(--red);color:var(--paper)}
+.opt.missed{outline:3px dashed var(--ok);outline-offset:2px}
+.opt:disabled{cursor:default}
+.fb{min-height:28px;margin:14px 0 0;font-weight:700}
+.fb.good{color:var(--ok)}
+.fb.badc{color:var(--red)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+.answer{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px;max-width:68ch}
+.answer li{padding-left:16px;border-left:var(--thin) solid var(--ink);line-height:1.45}
+.tip{margin-top:18px;font-size:14px;color:var(--muted);max-width:62ch}
+
+.cloze{font-size:18px;line-height:2.3;max-width:68ch;margin:6px 0 18px}
+.blank{display:inline-block;min-width:7ch;padding:0 8px;margin:0 2px;border:0;border-bottom:var(--thin) solid var(--ink);background:var(--paper);line-height:1.6;font-weight:700;cursor:pointer;vertical-align:baseline}
+.blank.filled{background:var(--grey)}
+.blank.active{background:var(--yellow);border-bottom-color:var(--ink)}
+.blank.ok{background:var(--ok-soft);border-bottom-color:var(--ok);color:var(--ok);cursor:default}
+.blank.bad{background:var(--bad-soft);border-bottom-color:var(--red);color:var(--red)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;padding:14px;border:2px dashed var(--ink);background:var(--paper)}
+.bank .eyebrow{flex-basis:100%}
+.chip{border:2px solid var(--ink);background:var(--paper);padding:6px 12px;cursor:pointer;font-weight:700}
+.chip:hover:not(:disabled){background:var(--yellow)}
+.chip:disabled{opacity:.2;cursor:default}
+
+.rpart{display:grid;gap:6px;margin-bottom:16px;max-width:70ch}
+.rpart label{font-weight:700}
+.rpart textarea{width:100%;min-height:64px;border:var(--thin) solid var(--ink);background:var(--paper);padding:10px 12px;font:inherit;resize:vertical}
+.rpart textarea:focus{outline:none;border-color:var(--blue)}
+.rpart textarea:disabled{background:var(--paper);color:var(--ink);opacity:1}
+.keys{display:flex;flex-wrap:wrap;gap:6px}
+.key{font-size:14px;padding:3px 10px;border:2px solid var(--ok);color:var(--ok);background:var(--ok-soft);font-weight:700}
+.key.miss{border-color:var(--red);color:var(--red);background:var(--bad-soft)}
+.key.miss::before{content:"✗ "}
+.key:not(.miss)::before{content:"✓ "}
+.verdict{display:grid;grid-template-columns:72px minmax(0,1fr);gap:var(--thin);background:var(--ink);border:var(--thin) solid var(--ink);margin-top:6px}
+.verdict .vc{background:var(--c,var(--grey))}
+.verdict .vt{background:var(--paper);padding:16px 18px}
+.verdict h3{margin:0 0 4px;font-family:var(--f-display);font-stretch:112%;font-weight:900;text-transform:uppercase;font-size:22px;line-height:1.05}
+.verdict p{margin:0}
+.modelbox{margin-top:18px;padding:14px 16px;border:2px solid var(--ink)}
+
+/* Sprint */
+.sprinthead{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:var(--thin);background:var(--ink)}
+.sprinthead>div{background:var(--paper);padding:10px 14px;display:flex;flex-direction:column;justify-content:center}
+.timer{height:16px;border:2px solid var(--ink);background:var(--paper)}
+.timer>i{display:block;height:100%;width:100%;background:var(--yellow)}
+.timer.low>i{background:var(--red)}
+.num{font-family:var(--f-display);font-weight:900;font-size:26px;font-variant-numeric:tabular-nums;line-height:1}
+.small{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.big{font-family:var(--f-display);font-stretch:118%;font-weight:900;font-size:clamp(56px,10vw,96px);line-height:.9}
+.list{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:0;border-top:2px solid var(--ink);max-width:76ch}
+.list li{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:2px solid var(--ink)}
+.list li>div{min-width:0}
+.list .sq{width:14px;height:14px;flex:none;background:var(--c);border:2px solid var(--ink)}
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.tog{border:var(--thin) solid var(--ink);background:var(--paper);padding:8px 14px;cursor:pointer;font-weight:700;display:inline-flex;gap:8px;align-items:center}
+.tog i{width:14px;height:14px;border:2px solid var(--ink);background:var(--paper)}
+.tog[aria-pressed="true"] i{background:var(--c)}
+.tog[aria-pressed="true"]{box-shadow:inset 0 -5px 0 var(--c)}
+
+/* Lezen */
+.readsec{margin-top:28px}
+.readsec h2{display:flex;align-items:center;gap:12px;margin:0 0 6px;font-size:22px}
+.readsec h2 i{width:22px;height:22px;background:var(--c);border:var(--thin) solid var(--ink);flex:none}
+.rgoal{padding:16px 0;border-bottom:2px solid var(--ink);display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 14px}
+.rgoal .code{font-family:var(--f-display);font-weight:900;font-size:20px}
+.rgoal h3{margin:0;font-size:17px;line-height:1.3}
+.rgoal .answer{margin-top:8px}
+.rgoal .btn{justify-self:start;margin-top:10px;min-height:38px;padding:6px 12px;font-size:14px}
+
+.vhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}
+.vhead h1{margin:0;font-size:clamp(28px,4.4vw,44px)}
+
+/* Tijdlijn */
+.mix,.list .sq.mix{background:conic-gradient(var(--red) 0 25%,var(--yellow) 0 50%,var(--blue) 0 75%,var(--ink) 0)}
+.tlwrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+.tlend{font-family:var(--f-display);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.tl{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.slot{display:grid;grid-template-columns:44px minmax(0,1fr) auto;border:var(--thin) solid var(--ink);background:var(--paper);min-height:54px}
+.slot .nr{background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:900;font-size:20px;grid-row:1/span 2}
+.slot .place{border:0;background:transparent;text-align:left;padding:10px 12px;cursor:pointer;font-weight:700;line-height:1.3;min-width:0}
+.slot.empty .place{color:var(--muted);font-weight:400;font-style:italic}
+.slot.active{background:var(--yellow)}
+.slot.ok{border-color:var(--ok);background:var(--ok-soft)}
+.slot.ok .nr{background:var(--ok)}
+.slot.ok .place{cursor:default}
+.slot.bad{border-color:var(--red);background:var(--bad-soft)}
+.slot.bad .nr{background:var(--red)}
+.slot .yr{padding:10px 12px;font-family:var(--f-display);font-weight:800;align-self:center;white-space:nowrap;color:var(--ok);font-variant-numeric:tabular-nums}
+.evpool{display:grid;gap:8px;padding:14px;border:2px dashed var(--ink);align-content:start}
+.ev{border:2px solid var(--ink);background:var(--paper);padding:10px 12px;text-align:left;cursor:pointer;font-weight:700;line-height:1.3}
+.ev:hover:not(:disabled){background:var(--yellow)}
+.ev:disabled{cursor:default}
+.tlnote{margin:10px 0 0;font-size:14px;color:var(--muted);max-width:62ch}
+@media (max-width:860px){.tlwrap{grid-template-columns:1fr}.evpool{order:-1}}
+[hidden]{display:none!important}
+
+@media (max-width:760px){
+  .comp{
+    grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(116px,auto);
+    grid-template-areas:
+      "t   t   t   t"
+      "p1a p1a p1b p1c"
+      "p2a p2a p2a p2b"
+      "p2c p2d p2e p2e"
+      "p3a p3b p3b p3c"
+      "p4a p4a p4b p4b"
+      "p5a p5b p5b p5b";
+    --line:5px;
+  }
+  .blk{padding:9px 8px 8px}
+  .blk .lbl{font-size:13px}
+  .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mode.y{grid-column:span 2}
+  .slot{grid-template-columns:36px minmax(0,1fr)}
+  .slot .yr{grid-column:2;padding:0 12px 8px}
+  .opts{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ghead{grid-template-columns:64px minmax(0,1fr)}
+  .gcolor{font-size:20px}
+  .sprinthead{grid-template-columns:minmax(0,1fr) auto}
+  .sprinthead>div:first-child{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap" lang="nl" id="app">
+
+  <!-- HOME -->
+  <section id="v-home">
+    <div class="comp" id="comp">
+      <div class="tblock">
+        <div>
+          <div class="eyebrow">3 havo · Geschiedenis · Hoofdstuk 1</div>
+          <h1 class="disp" id="h1">Kleur de compositie</h1>
+        </div>
+        <p id="tsub">Elk vlak is een lesdoel. Haal per lesdoel drie stappen: herkennen, aanvullen en uit je hoofd opschrijven. Bij elke stap kleurt het vlak verder in.</p>
+        <div class="tmeta">
+          <div class="score"><b id="tot">0</b> / 45 stappen · <span id="full">0</span>/15 vlakken vol</div>
+          <div class="namefield"><label for="naam">Naam</label><input id="naam" autocomplete="off" placeholder="Je naam"></div>
+        </div>
+      </div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i></i>nog niet geoefend</span>
+      <span><i style="background:linear-gradient(to top,var(--red) 30%,var(--paper) 30%)"></i>stap 1 en 2 gehaald</span>
+      <span><i style="background:var(--red)"></i>beheerst: uit je hoofd</span>
+    </div>
+
+    <div class="modes">
+      <button class="mode y" type="button" id="m-weak"><h3>Oefen verder</h3><p>Start bij het lesdoel dat je het minst beheerst.</p></button>
+      <button class="mode" type="button" id="m-sprint"><h3>Sprint</h3><p>60 seconden, alle lesdoelen door elkaar. Haal je record.</p></button>
+      <button class="mode" type="button" id="m-exam"><h3>Overhoring</h3><p>Schrijf de lesdoelen uit je hoofd op, zoals op de toets.</p></button>
+      <button class="mode" type="button" id="m-time"><h3>Tijdlijn</h3><p>Zet zes gebeurtenissen in de juiste volgorde.</p></button>
+      <button class="mode" type="button" id="m-read"><h3>Leeslijst</h3><p>Alle lesdoelen met de antwoorden op één pagina.</p></button>
+    </div>
+
+    <div class="foot">
+      <p>Je voortgang wordt alleen in deze browser bewaard. Gebruik dus steeds hetzelfde apparaat. De vormgeving komt van De Stijl, de kunststroming uit lesdoel 5.2.</p>
+      <div id="resetbox"><button class="backlink" type="button" id="reset">Voortgang wissen</button></div>
+    </div>
+  </section>
+
+  <!-- OEFENEN -->
+  <section id="v-train" hidden>
+    <button class="backlink" type="button" data-home>← Terug naar de compositie</button>
+    <div class="frame" id="trainframe" style="margin-top:10px">
+      <div class="ghead">
+        <div class="gcolor" id="gcolor"></div>
+        <div class="gtext"><div class="eyebrow" id="gpar"></div><h2 id="ggoal"></h2></div>
+      </div>
+      <div class="steps" id="steps"></div>
+      <div class="panel" id="panel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- SPRINT -->
+  <section id="v-sprint" hidden>
+    <button class="backlink" type="button" data-home>← Terug naar de compositie</button>
+    <div id="sprintbox" style="margin-top:10px"></div>
+  </section>
+
+  <!-- OVERHORING -->
+  <section id="v-exam" hidden>
+    <button class="backlink" type="button" data-home>← Terug naar de compositie</button>
+    <div id="exambox" style="margin-top:10px"></div>
+  </section>
+
+  <!-- TIJDLIJN -->
+  <section id="v-time" hidden>
+    <button class="backlink" type="button" data-home>← Terug naar de compositie</button>
+    <div id="timebox" style="margin-top:10px"></div>
+  </section>
+
+  <!-- LEESLIJST -->
+  <section id="v-read" hidden>
+    <button class="backlink" type="button" data-home>← Terug naar de compositie</button>
+    <div class="vhead" style="margin-top:10px"><h1 class="disp">Leeslijst</h1></div>
+    <p style="margin:0;max-width:62ch">Lees een lesdoel hardop, dek het antwoord af en zeg het na. Lukt dat, oefen het dan in het spel.</p>
+    <div id="readbox"></div>
+  </section>
+</div>
+
+<script>
+document.documentElement.lang = 'nl';
+
+/* ================= DATA ================= */
+const PARS = {
+  1:{t:'De moderne beleving van tijd', c:'var(--yellow)', lt:false},
+  2:{t:'De Eerste Wereldoorlog', c:'var(--red)', lt:true},
+  3:{t:'Revolutie in Rusland', c:'var(--blue)', lt:true},
+  4:{t:'De nieuwe kaart van Europa', c:'var(--ink)', lt:true},
+  5:{t:'Neutraal Nederland', c:'var(--grey)', lt:false}
+};
+
+const GOALS = [
+{id:'p1a',p:1,n:'1.1',short:'Arbeiders, vrouwen en koloniën',
+ goal:'De veranderingen voor arbeiders, vrouwen en de inwoners van de koloniën in de 19de eeuw.',
+ answer:['Arbeiders: werden uitgebuit, maar door sociale wetgeving verbeterde het leven.','Vrouwen: hadden geen rol in de maatschappij, maar kregen toegang tot hoger onderwijs en stemrecht.','Koloniën: werden onderdrukt, maar kregen meer zeggenschap door hervormingen.'],
+ mc:[
+  {q:'Hoe verbeterde het leven van arbeiders in de 19de eeuw?',a:'Door sociale wetgeving',w:['Door stemrecht voor vrouwen','Door hervormingen in de koloniën','Door de aanleg van spoorwegen']},
+  {q:'Wat kregen vrouwen in de 19de eeuw?',a:'Toegang tot hoger onderwijs en stemrecht',w:['Sociale wetgeving tegen uitbuiting','Meer zeggenschap door hervormingen','Een eigen leger']},
+  {q:'Hoe kregen de inwoners van de koloniën meer zeggenschap?',a:'Door hervormingen',w:['Door sociale wetgeving','Door de Februarirevolutie','Door de veertien punten van Wilson']}
+ ],
+ cloze:'Arbeiders werden [uitgebuit], maar door [sociale wetgeving] verbeterde het leven. Vrouwen kregen toegang tot [hoger onderwijs|a] en [stemrecht|a]. Koloniën werden [onderdrukt], maar kregen meer [zeggenschap] door [hervormingen].',
+ distract:['neutraliteit','terreur','herstelbetalingen'],
+ recall:{parts:[
+  {label:'Arbeiders',keys:[['uitgebuit','uitbuit'],['sociale wetgeving','wetgeving','wetten']]},
+  {label:'Vrouwen',keys:[['hoger onderwijs','onderwijs','studeren','universiteit'],['stemrecht','stemmen','kiesrecht']]},
+  {label:'Koloniën',keys:[['onderdrukt','onderdruk'],['meer zeggenschap','zeggenschap','inspraak','meer te zeggen'],['hervormingen','hervorm']]}
+ ]}},
+
+{id:'p1b',p:1,n:'1.2',short:'Drie voorbeelden van vooruitgang',
+ goal:'Drie concrete voorbeelden van vooruitgang uit de 19de eeuw, met uitleg waarom het vooruitgang was.',
+ answer:['Spoorwegen: de reistijd werd korter (handel).','Telegraaf: snellere communicatie (verspreiding van ideeën).','Tijdzones: afspraken over tijd (handel).'],
+ mc:[
+  {q:'Waarom waren spoorwegen een vorm van vooruitgang?',a:'De reistijd werd korter; goed voor de handel',w:['Communicatie ging sneller; ideeën verspreidden zich','Er kwamen afspraken over tijd','Arbeiders kregen betere wetten']},
+  {q:'Welke uitvinding zorgde voor snellere communicatie en de verspreiding van ideeën?',a:'De telegraaf',w:['De spoorwegen','De tijdzones','De wereldtentoonstelling']},
+  {q:'Waarom waren tijdzones een vorm van vooruitgang?',a:'Er kwamen afspraken over tijd; goed voor de handel',w:['De reistijd werd korter','Berichten kwamen sneller aan','Landen konden hun trots laten zien']}
+ ],
+ cloze:'[Spoorwegen]: de [reistijd] werd korter (handel). [Telegraaf]: snellere [communicatie] (verspreiding van [ideeën]). [Tijdzones]: [afspraken] over tijd (handel).',
+ distract:['Olympische Spelen','loopgraven','stemrecht'],
+ recall:{hint:'Noem drie voorbeelden en leg bij elk uit waarom het vooruitgang was.',parts:[
+  {label:null,need:6,keys:[['spoorwegen','spoorweg','trein'],['kortere reistijd','reistijd','sneller reizen'],['telegraaf','telegra'],['snellere communicatie','communic','berichten'],['tijdzones','tijdzone'],['afspraken over tijd','afspra'],['handel'],['verspreiding van ideeën','ideeen','idee']]}
+ ]}},
+
+{id:'p1c',p:1,n:'1.3',short:'Cultureel nationalisme',
+ goal:'Cultureel nationalisme beschrijven.',
+ answer:['Trots op eigen land verspreiden via cultuur: bouwwerken, wereldtentoonstellingen, Olympische Spelen.'],
+ mc:[
+  {q:'Wat is cultureel nationalisme?',a:'Trots op het eigen land verspreiden via cultuur',w:['Koloniën veroveren om het land groter te maken','Eisen dat ieder volk een eigen land krijgt','Neutraal blijven tijdens een oorlog']},
+  {q:'Welk voorbeeld hoort NIET bij cultureel nationalisme?',a:'Herstelbetalingen',w:['Bouwwerken','Wereldtentoonstellingen','De Olympische Spelen']},
+  {q:'Hoe lieten landen hun trots zien via cultuur?',a:'Met bouwwerken, wereldtentoonstellingen en de Olympische Spelen',w:['Met loopgraven, gifgas en tanks','Met sociale wetgeving en stemrecht','Met spoorwegen, de telegraaf en tijdzones']}
+ ],
+ cloze:'[Trots] op eigen land verspreiden via [cultuur]: [bouwwerken|a], [wereldtentoonstellingen|a], [Olympische Spelen|a].',
+ distract:['telegraaf','bondgenootschappen','marine'],
+ recall:{parts:[
+  {label:null,need:4,keys:[['trots'],['cultuur','cultu'],['bouwwerken','bouwwerk','gebouw'],['wereldtentoonstellingen','tentoonstelling'],['Olympische Spelen','olympi']]}
+ ]}},
+
+{id:'p2a',p:2,n:'2.1',short:'Belangen van vijf landen vóór 1914',
+ goal:'De belangen van Duitsland, Rusland, Oostenrijk(-Hongarije), Engeland en Frankrijk vóór 1914 bespreken.',
+ answer:['Duitsland: een krachtig land in Europa worden.','Rusland: beschermen van de Balkan.','Oostenrijk-Hongarije: nationaliteiten onder controle houden en de Balkan veroveren.','Engeland: grootste marine ter wereld behouden.','Frankrijk: wraak voor de vernedering van 1871.'],
+ pairs:[
+  {k:'Duitsland',v:'Een krachtig land in Europa worden'},
+  {k:'Rusland',v:'De Balkan beschermen'},
+  {k:'Oostenrijk-Hongarije',v:'Nationaliteiten onder controle houden en de Balkan veroveren'},
+  {k:'Engeland',v:'De grootste marine ter wereld behouden'},
+  {k:'Frankrijk',v:'Wraak voor de vernedering van 1871'}
+ ],
+ pairQ:{fwd:'Wat was vóór 1914 het belang van {k}?',rev:'Welk land had vóór 1914 dit belang: “{v}”?'},
+ mc:[
+  {q:'Welke vernedering wilde Frankrijk wreken?',a:'De nederlaag tegen Duitsland in 1871',w:['De nederlaag tegen Engeland in 1815','Het Verdrag van Versailles in 1919','De Russische Revolutie in 1917']}
+ ],
+ cloze:'Duitsland: een [krachtig] land in Europa worden. Rusland: de [Balkan] beschermen. Oostenrijk-Hongarije: [nationaliteiten] onder controle houden en de Balkan [veroveren]. Engeland: de grootste [marine] ter wereld behouden. Frankrijk: [wraak] voor de vernedering van [1871].',
+ distract:['1914','koloniën','neutraal'],
+ recall:{parts:[
+  {label:'Duitsland',keys:[['krachtig land in Europa','krachtig','machtig','sterk','grootmacht']]},
+  {label:'Rusland',keys:[['Balkan'],['beschermen','bescherm','verdedig']]},
+  {label:'Oostenrijk-Hongarije',keys:[['nationaliteiten onder controle','nationalit','volken','minderheden'],['Balkan veroveren','verover','innemen']]},
+  {label:'Engeland',keys:[['grootste marine','marine','vloot']]},
+  {label:'Frankrijk',keys:[['wraak','wreken'],['1871','vernedering','nederlaag']]}
+ ]}},
+
+{id:'p2b',p:2,n:'2.2',short:'Zes oorzaken van WO1',
+ goal:'De zes oorzaken van de Eerste Wereldoorlog benoemen.',
+ answer:['1. Rusland én Oostenrijk-Hongarije willen de Balkan.','2. Frankrijk wil wraak voor 1871.','3. Duitsland wil een machtig land worden (vlootopbouw en imperialisme).','4. Wapenwedloop.','5. Bondgenootschappen.','6. De wens tot oorlog.'],
+ multi:{q:'Kies de zes oorzaken van de Eerste Wereldoorlog.',a:['Rusland én Oostenrijk-Hongarije willen de Balkan','Frankrijk wil wraak voor 1871','Duitsland wil een machtig land worden','Wapenwedloop','Bondgenootschappen','De wens tot oorlog'],w:['De Russische Revolutie','Het Verdrag van Versailles','Deelname van de VS','Sociale wetgeving']},
+ mc:[
+  {q:'Hoe wilde Duitsland een machtig land worden?',a:'Door vlootopbouw en imperialisme',w:['Door de Balkan te beschermen','Door wraak te nemen voor 1871','Door neutraal te blijven']},
+  {q:'Welke twee landen wilden allebei de Balkan?',a:'Rusland en Oostenrijk-Hongarije',w:['Duitsland en Engeland','Frankrijk en Rusland','Engeland en Oostenrijk-Hongarije']}
+ ],
+ cloze:'1. Rusland én [Oostenrijk-Hongarije] willen de [Balkan]. 2. Frankrijk wil [wraak] voor 1871. 3. Duitsland wil een machtig land worden ([vlootopbouw|a] en [imperialisme|a]). 4. [Wapenwedloop|b]. 5. [Bondgenootschappen|b]. 6. De [wens] tot oorlog.',
+ distract:['neutraliteit','terreur','loopgraven'],
+ recall:{hint:'Noem alle zes.',parts:[
+  {label:null,need:6,keys:[['Balkan (Rusland én Oostenrijk-Hongarije)','balkan'],['wraak voor 1871 (Frankrijk)','wraak','wreken','1871'],['machtig worden: vloot en imperialisme (Duitsland)','machtig','vloot','imperialis','krachtig','grootmacht'],['wapenwedloop','wapenwedloop','bewapening','wedloop'],['bondgenootschappen','bondgeno','allianti','verbond'],['de wens tot oorlog','wens','oorlogszucht','oorlogszin','wilden oorlog','willen oorlog','wil oorlog','zin in oorlog','oorlogsenthousiasme']]}
+ ]}},
+
+{id:'p2c',p:2,n:'2.3',short:'Wapens en loopgraven',
+ goal:'Het verband tussen moderne wapens en loopgraven uitleggen.',
+ answer:['Door moderne wapens (machinegeweer) moest men bescherming zoeken in loopgraven.','Door loopgraven waren nieuwe wapens nodig (gifgas, tanks).'],
+ mc:[
+  {q:'Waarom zochten soldaten bescherming in loopgraven?',a:'Door moderne wapens zoals het machinegeweer',w:['Omdat de generaals sneller wilden oprukken','Omdat ze gifgas wilden opslaan','Omdat tanks over open velden reden']},
+  {q:'Welke nieuwe wapens waren nodig om de loopgraven te doorbreken?',a:'Gifgas en tanks',w:['Machinegeweren en prikkeldraad','Zwaarden en lansen','Spoorwegen en de telegraaf']},
+  {q:'Welke volgorde klopt?',a:'Moderne wapens → loopgraven → nieuwe wapens',w:['Loopgraven → moderne wapens → wapenstilstand','Nieuwe wapens → bondgenootschappen → loopgraven','Gifgas → machinegeweer → loopgraven']}
+ ],
+ cloze:'Door moderne wapens zoals het [machinegeweer] moest men [bescherming] zoeken in [loopgraven]. Door loopgraven waren [nieuwe wapens] nodig, zoals [gifgas|a] en [tanks|a].',
+ distract:['telegraaf','marine','bondgenootschappen'],
+ recall:{parts:[
+  {label:null,need:4,keys:[['machinegeweer','machinegew','mitrailleur'],['bescherming','bescherm','dekking','schuil','veilig'],['loopgraven','loopgra'],['gifgas','gas'],['tanks','tank']]}
+ ]}},
+
+{id:'p2d',p:2,n:'2.4',short:'Twee keerpunten',
+ goal:'De twee keerpunten in de Eerste Wereldoorlog bespreken.',
+ answer:['1. Terugtrekken van Rusland door de Russische Revolutie.','2. Deelname van de VS.'],
+ mc:[
+  {q:'Wat waren de twee keerpunten in de Eerste Wereldoorlog?',a:'Rusland trok zich terug en de VS deden mee',w:['De moord in Sarajevo en het Verdrag van Versailles','De inzet van gifgas en tanks','Nederland bleef neutraal en De Stijl ontstond']},
+  {q:'Waarom trok Rusland zich terug uit de oorlog?',a:'Door de Russische Revolutie',w:['Omdat het de Balkan had veroverd','Door het Verdrag van Versailles','Omdat de VS gingen meedoen']},
+  {q:'Welk land ging meedoen, wat een keerpunt was?',a:'De Verenigde Staten',w:['Nederland','Rusland','Oostenrijk-Hongarije']}
+ ],
+ cloze:'1. Het [terugtrekken] van [Rusland] door de [Russische Revolutie]. 2. De [deelname] van de [VS].',
+ distract:['Duitsland','wapenstilstand','Engeland'],
+ recall:{hint:'Noem beide keerpunten.',parts:[
+  {label:null,need:4,keys:[['Rusland'],['Russische Revolutie','revolutie'],['trekt zich terug','terug','vrede','stopt'],['de VS','vs','v s','verenigde staten','amerika'],['doen mee (deelname)','deelname','deel','meedo','meeve','mee']]}
+ ]}},
+
+{id:'p2e',p:2,n:'2.5',short:'Dolkstootlegende',
+ goal:'De Dolkstootlegende uitleggen.',
+ answer:['Volgens dit verzonnen verhaal zou het leger niet verslagen zijn, maar is het leger verraden door de regering die de wapenstilstand sloot.'],
+ mc:[
+  {q:'Wat beweert de Dolkstootlegende?',a:'Het leger was niet verslagen, maar verraden door de regering',w:['Duitsland was schuldig aan de oorlog','Rusland had zijn bondgenoten verraden','De VS hadden de oorlog alleen gewonnen']},
+  {q:'Wie zou het leger volgens de Dolkstootlegende verraden hebben?',a:'De regering die de wapenstilstand sloot',w:['De Russische bolsjewieken','President Wilson','De keizer van Oostenrijk-Hongarije']},
+  {q:'Is de Dolkstootlegende waar gebeurd?',a:'Nee, het is een verzonnen verhaal',w:['Ja, het leger is echt verraden','Ja, dat staat in het Verdrag van Versailles','Deels: alleen de marine is verraden']}
+ ],
+ cloze:'Volgens dit [verzonnen] verhaal zou het leger niet [verslagen] zijn, maar is het leger [verraden] door de [regering] die de [wapenstilstand] sloot.',
+ distract:['tsaar','vrede','gewonnen'],
+ recall:{parts:[
+  {label:null,need:4,keys:[['verzonnen verhaal','verzon','leugen','mythe','fabel','niet waar','onwaar'],['leger niet verslagen','verslagen','verloren','onoverwonnen'],['verraden','verraad','dolkstoot','rug'],['door de regering','regering','politic','politiek'],['wapenstilstand','wapenstil']]}
+ ]}},
+
+{id:'p3a',p:3,n:'3.1',short:'Rusland rond 1900',
+ goal:'De problemen van Rusland rond 1900 beschrijven.',
+ answer:['Rusland was een arm, agrarisch land met een absolute vorst.'],
+ mc:[
+  {q:'Welke omschrijving past bij Rusland rond 1900?',a:'Een arm, agrarisch land met een absolute vorst',w:['Een rijk industrieland met een parlement','Een neutraal land met een koning','Een communistische staat']},
+  {q:'Wat betekent agrarisch?',a:'Gericht op landbouw',w:['Gericht op industrie','Gericht op handel over zee','Gericht op oorlog']},
+  {q:'Wie had rond 1900 de macht in Rusland?',a:'Een absolute vorst: de tsaar',w:['De bolsjewieken','Een gekozen parlement','De arbeiders']}
+ ],
+ cloze:'Rusland was een [arm|a], [agrarisch|a] land met een [absolute] vorst.',
+ distract:['rijk','industrieel','democratisch'],
+ recall:{parts:[
+  {label:null,need:3,keys:[['arm','armoede'],['agrarisch','agrar','landbouw','boeren'],['absolute vorst','absolu','tsaar','alleenheerser','dictator']]}
+ ]}},
+
+{id:'p3b',p:3,n:'3.2',short:'Februari- en Oktoberrevolutie',
+ goal:'Het verschil tussen de Februari- en de Oktoberrevolutie uitleggen.',
+ answer:['Februarirevolutie: een opstand tegen de tsaar en tegen deelname aan WO1.','Oktoberrevolutie: een staatsgreep van de bolsjewieken (communisten).'],
+ mc:[
+  {q:'Waartegen was de Februarirevolutie een opstand?',a:'Tegen de tsaar en de deelname aan WO1',w:['Tegen de bolsjewieken','Tegen het Verdrag van Versailles','Tegen de veertien punten van Wilson']},
+  {q:'Wat was de Oktoberrevolutie?',a:'Een staatsgreep van de bolsjewieken',w:['Een opstand tegen de tsaar','Een vredesverdrag met Duitsland','Een volksstemming over de oorlog']},
+  {q:'Wie waren de bolsjewieken?',a:'Communisten',w:['Aanhangers van de tsaar','Liberalen die een parlement wilden','Duitse soldaten']}
+ ],
+ cloze:'De Februarirevolutie was een [opstand] tegen de [tsaar] en deelname aan [WO1]. De Oktoberrevolutie was een [staatsgreep] van de [bolsjewieken|a] ([communisten|a]).',
+ distract:['staking','Wilson','liberalen'],
+ recall:{parts:[
+  {label:'Februarirevolutie',keys:[['opstand','revolte','protest'],['tegen de tsaar','tsaar'],['tegen deelname aan WO1','wo1','woi','wo i','wo 1','oorlog']]},
+  {label:'Oktoberrevolutie',keys:[['staatsgreep','staatsgr','coup','machtsgreep','machtsovername','macht gegrepen'],['van de bolsjewieken (communisten)','bolsjew','communis','lenin']]}
+ ]}},
+
+{id:'p3c',p:3,n:'3.3',short:'Controle in de Sovjet-Unie',
+ goal:'Uitleggen hoe de bevolking van de Sovjet-Unie onder controle werd gehouden.',
+ answer:['De bevolking werd onder controle gehouden door terreur.'],
+ mc:[
+  {q:'Hoe werd de bevolking van de Sovjet-Unie onder controle gehouden?',a:'Door terreur',w:['Door sociale wetgeving','Door vrije verkiezingen','Door cultureel nationalisme']},
+  {q:'Wat betekent terreur?',a:'Mensen met geweld bang maken, zodat ze gehoorzamen',w:['Mensen overtuigen met eerlijke argumenten','Mensen meer zeggenschap geven','Mensen laten stemmen over de regering']}
+ ],
+ cloze:'De bevolking werd onder [controle] gehouden door [terreur].',
+ distract:['verkiezingen','hervormingen','neutraliteit'],
+ recall:{parts:[
+  {label:null,need:1,keys:[['terreur','terre','angst','geweld','intimidatie','bang']]}
+ ]}},
+
+{id:'p4a',p:4,n:'4.1',short:'Veertien punten van Wilson',
+ goal:'Uitleggen waarom de veertien punten van Wilson voor problemen gaan zorgen.',
+ answer:['Eén van de punten zei dat ieder volk recht heeft op zijn eigen land.','Na WO1 kwamen veel Duitsers echter in andere landen te wonen.'],
+ mc:[
+  {q:'Welk punt van Wilson ging voor problemen zorgen?',a:'Ieder volk heeft recht op een eigen land',w:['Duitsland moet herstelbetalingen betalen','Rusland moet zich terugtrekken','Nederland moet neutraal blijven']},
+  {q:'Waarom zorgde dat punt voor problemen?',a:'Na WO1 kwamen veel Duitsers in andere landen te wonen',w:['Duitsland kreeg er juist veel gebied bij','Geen enkel volk wilde een eigen land','De VS wilden zelf koloniën in Europa']}
+ ],
+ cloze:'Eén van de punten zei dat ieder [volk] recht heeft op zijn eigen [land]. Na WO1 kwamen veel [Duitsers] echter in [andere landen] te wonen.',
+ distract:['Russen','koloniën','leger'],
+ recall:{parts:[
+  {label:null,need:3,keys:[['ieder volk','volk'],['recht op een eigen land','eigen land','zelfbeschikking','recht'],['Duitsers','duits'],['in andere landen','andere','ander land','buitenland']]}
+ ]}},
+
+{id:'p4b',p:4,n:'4.2',short:'Vier straffen van Versailles',
+ goal:'De vier straffen voor Duitsland in het Verdrag van Versailles benoemen.',
+ answer:['Een klein leger.','Gebieden afstaan.','Herstelbetalingen.','Schuldig aan WO1.'],
+ multi:{q:'Kies de vier straffen voor Duitsland in het Verdrag van Versailles.',a:['Een klein leger','Gebieden afstaan','Herstelbetalingen','Schuldig aan WO1'],w:['Opsplitsing in twee landen','Een verbod op alle handel','De keizer moest terugkomen']},
+ mc:[
+  {q:'Wat zijn herstelbetalingen?',a:'Geld betalen om de oorlogsschade te vergoeden',w:['Geld lenen om het leger te herstellen','Belasting voor de bouw van loopgraven','Geld dat Duitsland van de VS kreeg']}
+ ],
+ cloze:'Een klein [leger], [gebieden] afstaan, [herstelbetalingen], [schuldig] aan WO1.',
+ distract:['koloniën veroveren','marine','wapenstilstand'],
+ recall:{hint:'Noem alle vier.',parts:[
+  {label:null,need:4,keys:[['klein leger','leger'],['gebieden afstaan','gebied','afstaan','afstand'],['herstelbetalingen','herstelbet','betalen','betaling','schadevergoeding'],['schuldig aan WO1','schuld']]}
+ ]}},
+
+{id:'p5a',p:5,n:'5.1',short:'Economische gevolgen voor Nederland',
+ goal:'De economische gevolgen van WO1 voor Nederland bespreken.',
+ answer:['Nederland is neutraal tijdens WO1.','De economie lijdt onder economische blokkades.'],
+ mc:[
+  {q:'Wat was de positie van Nederland in WO1?',a:'Neutraal',w:['Bondgenoot van Duitsland','Bondgenoot van Engeland','Bezet door Duitsland']},
+  {q:'Wat was het economische gevolg van WO1 voor Nederland?',a:'De economie leed onder blokkades',w:['Nederland moest herstelbetalingen betalen','Nederland verloor al zijn koloniën','Nederland kreeg sociale wetgeving']}
+ ],
+ cloze:'Nederland is [neutraal] tijdens WO1. De [economie] lijdt onder economische [blokkades].',
+ distract:['herstelbetalingen','bezet','koloniën'],
+ recall:{parts:[
+  {label:null,need:2,keys:[['neutraal','neutra'],['economische blokkades','blokkade','blokk','geblokkeerd']]}
+ ]}},
+
+{id:'p5b',p:5,n:'5.2',short:'Culturele ontwikkeling: De Stijl',
+ goal:'De culturele ontwikkeling tijdens WO1 in Nederland bespreken.',
+ answer:['Onder andere door de neutraliteit ontstaat in Nederland de kunststroming De Stijl.'],
+ mc:[
+  {q:'Welke kunststroming ontstond tijdens WO1 in Nederland?',a:'De Stijl',w:['De Haagse School','Het impressionisme','De barok']},
+  {q:'Wat hielp onder andere bij het ontstaan van De Stijl?',a:'De neutraliteit van Nederland',w:['De Russische Revolutie','De Dolkstootlegende','Het Verdrag van Versailles']}
+ ],
+ cloze:'Onder andere door de [neutraliteit] ontstaat in Nederland de [kunststroming] [De Stijl].',
+ distract:['Haagse School','bezetting','Duitsland'],
+ recall:{parts:[
+  {label:null,need:2,keys:[['neutraliteit','neutra'],['De Stijl','stijl']]}
+ ]}}
+];
+const BY = Object.fromEntries(GOALS.map(g=>[g.id,g]));
+
+/* ================= HULP ================= */
+const $ = (s,r=document)=>r.querySelector(s);
+function el(tag,attrs={},...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs||{})){
+    if(v==null||v===false) continue;
+    if(k==='class') e.className=v;
+    else if(k==='style') e.setAttribute('style',v);
+    else if(k.startsWith('on')) e.addEventListener(k.slice(2),v);
+    else e.setAttribute(k,v===true?'':v);
+  }
+  for(const kid of kids.flat()){ if(kid==null||kid===false) continue; e.append(kid.nodeType?kid:document.createTextNode(String(kid))); }
+  return e;
+}
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const cssC=g=>PARS[g.p].c;
+
+/* ---- opslag (alleen deze browser) ---- */
+const KEY='lesdoelen-h1-3havo-v1';
+let S={lv:{},best:0,name:''};
+try{const r=JSON.parse(localStorage.getItem(KEY)||'null'); if(r&&typeof r==='object') S=Object.assign(S,r); if(!S.lv||typeof S.lv!=='object') S.lv={};}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const lv=id=>Math.max(0,Math.min(3,S.lv[id]||0));
+function award(id,n){ if(n>lv(id)){S.lv[id]=n;save();return true} return false; }
+
+/* ---- nakijken van vrije tekst ---- */
+function norm(s){return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim()}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){const cur=[i];for(let j=1;j<=n;j++){cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1))}prev=cur}
+  return prev[n];
+}
+function wordMatch(w,v){
+  if(w===v) return true;
+  if(v.length<4) return false;
+  if(w.startsWith(v)) return true;
+  if(v.length>=5 && w.includes(v)) return true;
+  if(v.length>=5){
+    const tol=v.length>=8?2:1;
+    if(Math.abs(w.length-v.length)<=tol && lev(w,v)<=tol) return true;
+    if(w.length>v.length && lev(w.slice(0,v.length),v)<=1) return true;
+  }
+  return false;
+}
+function variantMatch(words,variant){
+  const vw=norm(variant).split(' ').filter(Boolean);
+  if(!vw.length) return false;
+  return vw.every(x=>words.some(w=>wordMatch(w,x)));
+}
+function checkRecall(g,texts){
+  const parts=g.recall.parts.map((p,i)=>{
+    const words=norm(texts[i]||'').split(' ').filter(Boolean);
+    const found=p.keys.map(k=>k.some(v=>variantMatch(words,v)));
+    const n=p.keys.length;
+    const need=p.need ?? (n<=2?n:n-1);
+    const count=found.filter(Boolean).length;
+    return {found,need,count,pass:count>=need};
+  });
+  return {parts,pass:parts.every(p=>p.pass)};
+}
+
+/* ---- vragen maken ---- */
+function qMC(m,gid){const opts=shuffle([m.a,...m.w]);return{gid,q:m.q,opts,a:[opts.indexOf(m.a)],multi:false}}
+function qMulti(m,gid){const opts=shuffle([...m.a,...m.w]);return{gid,q:m.q,opts,a:m.a.map(x=>opts.indexOf(x)),multi:true}}
+function qPair(g,i,fwd){
+  const p=g.pairs[i]; const others=shuffle(g.pairs.filter((_,j)=>j!==i)).slice(0,3);
+  if(fwd){const opts=shuffle([p.v,...others.map(o=>o.v)]);return{gid:g.id,q:g.pairQ.fwd.replace('{k}',p.k),opts,a:[opts.indexOf(p.v)],multi:false}}
+  const opts=shuffle([p.k,...others.map(o=>o.k)]);
+  const v=p.v.charAt(0).toLowerCase()+p.v.slice(1);
+  return{gid:g.id,q:g.pairQ.rev.replace('{v}',v),opts,a:[opts.indexOf(p.k)],multi:false};
+}
+function level1Sources(g){
+  const src=[];
+  (g.mc||[]).forEach(m=>src.push(()=>qMC(m,g.id)));
+  (g.pairs||[]).forEach((_,i)=>src.push(()=>qPair(g,i,Math.random()<.5)));
+  if(g.multi) src.push(()=>qMulti(g.multi,g.id));
+  return shuffle(src);
+}
+function sprintSources(){
+  const src=[];
+  GOALS.forEach(g=>{
+    (g.mc||[]).forEach(m=>src.push(()=>qMC(m,g.id)));
+    (g.pairs||[]).forEach((_,i)=>{src.push(()=>qPair(g,i,true));src.push(()=>qPair(g,i,false))});
+  });
+  return src;
+}
+
+function answerList(g){
+  return el('ul',{class:'answer'},g.answer.map(line=>{
+    const m=line.match(/^([^:]{2,32}):\s(.*)$/);
+    return m?el('li',{},el('strong',{},m[1]+': '),m[2]):el('li',{},line);
+  }));
+}
+
+/* ================= VIEWS ================= */
+let sprintTimer=null;
+let trainRun=0;
+function show(name){
+  trainRun++;
+  for(const s of document.querySelectorAll('#app > section')) s.hidden = s.id!=='v-'+name;
+  if(name!=='sprint' && sprintTimer){clearInterval(sprintTimer);sprintTimer=null}
+  if(name==='home') renderHome();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-home]').forEach(b=>b.addEventListener('click',()=>show('home')));
+
+/* ---- HOME ---- */
+const blocks={};
+(function buildComp(){
+  const comp=$('#comp');
+  GOALS.forEach(g=>{
+    const pips=el('span',{class:'pips','aria-hidden':'true'},[0,1,2].map(()=>el('i',{class:'pip'})));
+    const b=el('button',{type:'button',class:'blk'+(PARS[g.p].lt?' lt':''),style:`grid-area:${g.id};--c:${cssC(g)}`,onclick:()=>openGoal(g.id)},
+      el('span',{},el('span',{class:'code'},g.n),el('span',{class:'lbl'},g.short)),
+      pips);
+    blocks[g.id]={b,pips};
+    comp.append(b);
+  });
+})();
+function renderHome(){
+  let tot=0,full=0;
+  GOALS.forEach(g=>{
+    const l=lv(g.id); tot+=l; if(l===3) full++;
+    const {b,pips}=blocks[g.id];
+    b.dataset.l=l;
+    [...pips.children].forEach((p,i)=>p.classList.toggle('on',i<l));
+    b.setAttribute('aria-label',`Lesdoel ${g.n}: ${g.short}. ${l} van 3 stappen gehaald.`);
+  });
+  $('#tot').textContent=tot; $('#full').textContent=full;
+  if(tot===45){$('#h1').textContent='Compositie voltooid';$('#tsub').textContent='Je beheerst alle vijftien lesdoelen. Maak een screenshot voor je docent, of houd ze scherp met de Sprint en de Overhoring.'}
+  else {$('#h1').textContent='Kleur de compositie';$('#tsub').textContent='Elk vlak is een lesdoel. Haal per lesdoel drie stappen: herkennen, aanvullen en uit je hoofd opschrijven. Bij elke stap kleurt het vlak verder in.'}
+}
+const naam=$('#naam'); naam.value=S.name||'';
+naam.addEventListener('input',()=>{S.name=naam.value;save()});
+
+function weakest(exclude){
+  const min=Math.min(...GOALS.map(g=>lv(g.id)));
+  let pool=GOALS.filter(g=>lv(g.id)===min && g.id!==exclude);
+  if(!pool.length) pool=GOALS.filter(g=>g.id!==exclude);
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+$('#m-weak').addEventListener('click',()=>openGoal(weakest().id));
+$('#m-sprint').addEventListener('click',sprintIntro);
+$('#m-exam').addEventListener('click',examSetup);
+$('#m-read').addEventListener('click',renderRead);
+$('#m-time').addEventListener('click',()=>timeMenu());
+
+$('#reset').addEventListener('click',()=>{
+  const box=$('#resetbox');
+  box.replaceChildren(el('span',{class:'row'},
+    el('span',{},'Alles wissen?'),
+    el('button',{class:'btn',type:'button',onclick:()=>{S.lv={};S.best=0;S.tl={};save();restoreReset();renderHome()}},'Ja, wis mijn voortgang'),
+    el('button',{class:'btn',type:'button',onclick:restoreReset},'Nee')));
+});
+function restoreReset(){
+  const box=$('#resetbox');
+  const b=el('button',{class:'backlink',type:'button',id:'reset'},'Voortgang wissen');
+  box.replaceChildren(b);
+  b.addEventListener('click',()=>{
+    box.replaceChildren(el('span',{class:'row'},el('span',{},'Alles wissen?'),
+      el('button',{class:'btn',type:'button',onclick:()=>{S.lv={};S.best=0;S.tl={};save();restoreReset();renderHome()}},'Ja, wis mijn voortgang'),
+      el('button',{class:'btn',type:'button',onclick:restoreReset},'Nee')));
+  });
+}
+
+/* ---- OEFENEN ---- */
+const STEPS=[
+  {n:'Lezen',t:'Lees het antwoord'},
+  {n:'Stap 1',t:'Herkennen'},
+  {n:'Stap 2',t:'Aanvullen'},
+  {n:'Stap 3',t:'Uit je hoofd'}
+];
+let cur=null, step=0;
+function openGoal(id,st){
+  cur=BY[id];
+  const l=lv(id);
+  step = st ?? (l===0?0:Math.min(l+1,3));
+  show('train');
+  renderTrain();
+}
+function renderTrain(){
+  const g=cur;
+  $('#trainframe').style.setProperty('--c',cssC(g));
+  const gc=$('#gcolor'); gc.textContent=g.n; gc.className='gcolor'+(PARS[g.p].lt?' lt':'');
+  $('#gpar').textContent=`Paragraaf ${g.p} · ${PARS[g.p].t}`;
+  $('#ggoal').textContent=g.goal;
+  const l=lv(g.id);
+  const st=$('#steps'); st.replaceChildren();
+  STEPS.forEach((s,i)=>{
+    const locked=i>l+1;
+    const b=el('button',{type:'button',class:'step'+(i===step?' on':'')+(locked?' lock':'')+(i>0&&i<=l?' got':''),'aria-current':i===step?'step':null,'aria-disabled':locked?'true':null,title:locked?`Haal eerst stap ${i-1}`:null,onclick:()=>{if(locked)return;step=i;renderTrain()}},
+      el('span',{class:'sn'},s.n),el('span',{class:'st'},locked?`Eerst stap ${i-1}`:s.t));
+    st.append(b);
+  });
+  const panel=$('#panel'); panel.replaceChildren();
+  if(step===0) renderReadStep(panel,g);
+  const rid=++trainRun; // negeer late callbacks als de leerling al verder is
+  if(step===1) runQuiz(panel,level1Sources(g),m=>{if(rid===trainRun) finish(1,m<=1,m)});
+  else if(step===2) runCloze(panel,g,m=>{if(rid===trainRun) finish(2,m<=1,m)});
+  else if(step===3) runRecallStep(panel,g);
+}
+function renderReadStep(panel,g){
+  const l=lv(g.id);
+  const next=Math.min(l+1,3);
+  panel.append(
+    el('div',{class:'eyebrow'},'Dit moet je kunnen opschrijven'),
+    answerList(g),
+    el('p',{class:'tip'},'Lees het hardop. Kijk dan weg en zeg het na. Daarna ga je oefenen: eerst herkennen, dan aanvullen, dan helemaal zelf opschrijven.'),
+    el('div',{class:'actions'},el('button',{class:'btn primary',type:'button',onclick:()=>{step=next;renderTrain()}},`Start ${STEPS[next].n.toLowerCase()}: ${STEPS[next].t.toLowerCase()}`))
+  );
+}
+function finish(n,ok,mistakes){
+  const panel=$('#panel'); panel.replaceChildren();
+  const g=cur;
+  if(ok){
+    award(g.id,n);
+    const done=n===3;
+    panel.append(verdictBox(g,done?'Vlak ingekleurd':`Stap ${n} gehaald`,
+      done?'Je kunt dit lesdoel uit je hoofd opschrijven. Kom later nog eens terug, dan blijft het hangen.'
+          :(mistakes?`Met ${mistakes} fout. Op naar stap ${n+1}.`:`Foutloos. Op naar stap ${n+1}.`)));
+    const acts=el('div',{class:'actions'});
+    if(!done) acts.append(el('button',{class:'btn primary',type:'button',onclick:()=>{step=n+1;renderTrain()}},`Naar stap ${n+1}: ${STEPS[n+1].t.toLowerCase()}`));
+    else acts.append(el('button',{class:'btn primary',type:'button',onclick:()=>openGoal(weakest(g.id).id)},'Volgend lesdoel'));
+    acts.append(el('button',{class:'btn',type:'button',onclick:()=>show('home')},'Bekijk de compositie'));
+    panel.append(acts);
+    renderStepsOnly();
+  } else {
+    panel.append(verdictBox(null,'Bijna',`Je maakte ${mistakes} fouten. Voor deze stap mag je er hooguit 1 maken. Lees het antwoord nog eens en probeer het opnieuw.`));
+    panel.append(answerList(g));
+    panel.append(el('div',{class:'actions'},
+      el('button',{class:'btn primary',type:'button',onclick:()=>renderTrain()},'Opnieuw'),
+      el('button',{class:'btn',type:'button',onclick:()=>show('home')},'Bekijk de compositie')));
+  }
+  panel.querySelector('.btn')?.focus({preventScroll:true});
+}
+function renderStepsOnly(){ const keep=step; renderTrainHeaderSteps(keep); }
+function renderTrainHeaderSteps(active){
+  const l=lv(cur.id); const st=$('#steps');
+  [...st.children].forEach((b,i)=>{
+    const locked=i>l+1;
+    b.className='step'+(i===active?' on':'')+(locked?' lock':'')+(i>0&&i<=l?' got':'');
+    b.querySelector('.st').textContent=locked?`Eerst stap ${i-1}`:STEPS[i].t;
+    b.onclick=()=>{if(locked)return;step=i;renderTrain()};
+    b.removeAttribute('title'); b.removeAttribute('aria-disabled');
+    if(locked){b.title=`Haal eerst stap ${i-1}`;b.setAttribute('aria-disabled','true')}
+  });
+}
+function verdictBox(g,title,text){
+  return el('div',{class:'verdict',style:g?`--c:${cssC(g)}`:'--c:var(--grey)'},
+    el('div',{class:'vc'}),
+    el('div',{class:'vt'},el('h3',{},title),el('p',{},text)));
+}
+
+/* -- stap 1: meerkeuze, foute vragen komen terug -- */
+function runQuiz(box,sources,onDone){
+  const total=sources.length; let queue=sources.slice(); let done=0, mistakes=0;
+  function next(){
+    if(!queue.length){onDone(mistakes);return}
+    const make=queue.shift(); const q=make();
+    box.replaceChildren();
+    const fill=el('i',{style:`width:${(done/total)*100}%`});
+    box.append(el('div',{class:'prog'},el('span',{},`${done} van ${total} goed`),el('div',{class:'bar'},fill),el('span',{},mistakes?`${mistakes} fout`:'')));
+    box.append(el('p',{class:'q'},q.q));
+    box.append(el('p',{class:'qhint'},q.multi?`Kies er ${q.a.length}. Klik daarna op Controleer.`:'Kies het juiste antwoord.'));
+    const fb=el('p',{class:'fb',role:'status'});
+    const acts=el('div',{class:'actions'});
+    const btns=q.opts.map((o,i)=>el('button',{type:'button',class:'opt'},o));
+    const opts=el('div',{class:'opts'},btns);
+    box.append(opts,fb,acts);
+    if(!q.multi){
+      btns.forEach((b,i)=>b.addEventListener('click',()=>{
+        btns.forEach(x=>x.disabled=true);
+        const right=q.a[0];
+        btns[right].classList.add('right');
+        if(i===right){done++;fb.className='fb good';fb.textContent='Goed.';setTimeout(next,650)}
+        else{
+          b.classList.add('wrong');mistakes++;queue.push(make);
+          fb.className='fb badc';fb.textContent='Niet goed. Het juiste antwoord is groen. Deze vraag komt straks terug.';
+          const go=el('button',{class:'btn primary',type:'button',onclick:next},'Verder');acts.append(go);go.focus({preventScroll:true});
+        }
+      }));
+    } else {
+      const sel=new Set();
+      const check=el('button',{class:'btn primary',type:'button',disabled:true},'Controleer');
+      acts.append(check);
+      btns.forEach((b,i)=>b.addEventListener('click',()=>{
+        if(sel.has(i)){sel.delete(i);b.classList.remove('sel')}else{sel.add(i);b.classList.add('sel')}
+        b.setAttribute('aria-pressed',sel.has(i)?'true':'false');
+        check.disabled=sel.size!==q.a.length;
+      }));
+      btns.forEach(b=>b.setAttribute('aria-pressed','false'));
+      check.addEventListener('click',()=>{
+        btns.forEach(x=>x.disabled=true); check.remove();
+        const ans=new Set(q.a); let ok=true;
+        btns.forEach((b,i)=>{
+          b.classList.remove('sel');
+          if(ans.has(i)&&sel.has(i)) b.classList.add('right');
+          else if(sel.has(i)){b.classList.add('wrong');ok=false}
+          else if(ans.has(i)){b.classList.add('missed');ok=false}
+        });
+        if(ok){done++;fb.className='fb good';fb.textContent='Alles goed.';setTimeout(next,900)}
+        else{mistakes++;queue.push(make);fb.className='fb badc';fb.textContent='Niet helemaal. Groen is goed gekozen, rood is fout, gestippeld had je moeten kiezen. Deze vraag komt terug.';
+          const go=el('button',{class:'btn primary',type:'button',onclick:next},'Verder');acts.append(go);go.focus({preventScroll:true});}
+      });
+    }
+  }
+  next();
+}
+
+/* -- stap 2: gatentekst met woordbank -- */
+function runCloze(box,g,onDone){
+  const parts=g.cloze.split(/\[([^\]]+)\]/);
+  const blanks=[]; const text=el('p',{class:'cloze'});
+  parts.forEach((p,i)=>{
+    if(i%2===0){ if(p) text.append(p); return; }
+    const [ans,grp]=p.split('|');
+    const b={ans,grp:grp||null,val:null,locked:false};
+    b.el=el('button',{type:'button',class:'blank','aria-label':'Leeg vakje'});
+    b.el.addEventListener('click',()=>clickBlank(b));
+    blanks.push(b); text.append(b.el);
+  });
+  const chips=shuffle([...blanks.map(b=>b.ans),...g.distract]).map(w=>{
+    const c={w,used:false}; c.el=el('button',{type:'button',class:'chip'},w); c.el.addEventListener('click',()=>clickChip(c)); return c;
+  });
+  let active=0, mistakes=0, busy=false;
+  const fb=el('p',{class:'fb',role:'status'});
+  const check=el('button',{class:'btn primary',type:'button',disabled:true},'Controleer');
+  box.replaceChildren(
+    el('div',{class:'prog'},el('span',{},`${blanks.length} vakjes`)),
+    el('p',{class:'qhint'},'Klik op een woord om het in het gele vakje te zetten. Klik op een ingevuld vakje om het woord terug te zetten. Er zitten ook woorden tussen die niet passen.'+(blanks.some(b=>b.grp)?' Bij een opsomming mag de volgorde anders.':'')),
+    text,
+    el('div',{class:'bank'},el('div',{class:'eyebrow'},'Woordbank'),chips.map(c=>c.el)),
+    fb,el('div',{class:'actions'},check));
+  const firstEmpty=()=>blanks.findIndex(b=>!b.val&&!b.locked);
+  function refresh(){
+    blanks.forEach((b,i)=>{
+      b.el.textContent=b.val?b.val.w:' ';
+      b.el.classList.toggle('filled',!!b.val&&!b.locked);
+      b.el.classList.toggle('active',i===active&&!b.locked&&!busy);
+      b.el.setAttribute('aria-label',b.val?`Ingevuld: ${b.val.w}`:'Leeg vakje');
+    });
+    chips.forEach(c=>c.el.disabled=c.used||busy);
+    check.disabled=busy||blanks.some(b=>!b.val);
+  }
+  function clickChip(c){
+    if(c.used||busy) return;
+    let i=active; if(i<0||blanks[i].val||blanks[i].locked) i=firstEmpty(); if(i<0) return;
+    blanks[i].val=c; c.used=true; active=firstEmpty(); refresh();
+  }
+  function clickBlank(b){
+    if(b.locked||busy) return;
+    if(b.val){b.val.used=false;b.val=null}
+    active=blanks.indexOf(b); refresh();
+  }
+  check.addEventListener('click',()=>{
+    // Vakjes met dezelfde groep (een opsomming) mogen in elke volgorde.
+    const pool={};
+    blanks.forEach(b=>{ if(b.grp) (pool[b.grp]||(pool[b.grp]=[])).push(norm(b.ans)); });
+    blanks.forEach(b=>{ if(b.grp&&b.locked){const a=pool[b.grp];a.splice(a.indexOf(norm(b.val.w)),1)} });
+    let wrong=0;
+    blanks.forEach(b=>{
+      if(b.locked) return;
+      const v=norm(b.val.w); let ok;
+      if(b.grp){const a=pool[b.grp];const k=a.indexOf(v);ok=k>=0;if(ok)a.splice(k,1)}
+      else ok=v===norm(b.ans);
+      if(ok){b.locked=true;b.el.classList.add('ok');b.el.classList.remove('filled')}
+      else{wrong++;b.el.classList.add('bad')}
+    });
+    if(!wrong){fb.className='fb good';fb.textContent='Alles goed.';refresh();setTimeout(()=>onDone(mistakes),800);return}
+    mistakes+=wrong; busy=true; refresh();
+    fb.className='fb badc'; fb.textContent=`${wrong} ${wrong===1?'woord staat':'woorden staan'} op de verkeerde plek. Die gaan terug naar de woordbank.`;
+    setTimeout(()=>{
+      blanks.forEach(b=>{ if(!b.locked&&b.val){b.val.used=false;b.val=null;b.el.classList.remove('bad')} });
+      busy=false; active=firstEmpty(); refresh();
+    },1300);
+  });
+  refresh();
+}
+
+/* -- stap 3: uit je hoofd -- */
+function recallForm(g,onChecked,opts={}){
+  const wrap=el('div');
+  const tas=g.recall.parts.map((p,i)=>{
+    const id=`r-${g.id}-${i}-${opts.tag||'t'}`;
+    const ta=el('textarea',{id,rows:'2',spellcheck:'false',placeholder:p.label?`Wat weet je over ${p.label}?`:'Schrijf het antwoord op…'});
+    const res=el('div',{class:'keys'});
+    wrap.append(el('div',{class:'rpart'},el('label',{for:id},p.label||'Jouw antwoord'),ta,res));
+    return {ta,res};
+  });
+  const fb=el('p',{class:'fb',role:'status'});
+  const acts=el('div',{class:'actions'});
+  const check=el('button',{class:'btn primary',type:'button'},'Nakijken');
+  acts.append(check);
+  wrap.append(fb,acts);
+  check.addEventListener('click',()=>{
+    const texts=tas.map(t=>t.ta.value);
+    if(texts.every(t=>!t.trim())){fb.className='fb badc';fb.textContent='Schrijf eerst iets op.';return}
+    const r=checkRecall(g,texts);
+    tas.forEach((t,i)=>{
+      t.ta.disabled=true;
+      const p=g.recall.parts[i], pr=r.parts[i];
+      t.res.replaceChildren(...p.keys.map((k,j)=>el('span',{class:'key'+(pr.found[j]?'':' miss')},k[0])));
+    });
+    check.remove();
+    onChecked(r,{fb,acts,wrap});
+  });
+  setTimeout(()=>tas[0]?.ta.focus({preventScroll:true}),30);
+  return wrap;
+}
+function runRecallStep(panel,g){
+  panel.append(el('p',{class:'q'},g.goal));
+  panel.append(el('p',{class:'qhint'},(g.recall.hint?g.recall.hint+' ':'')+'Schrijf het op zonder te kijken. Spelfouten zijn niet erg; het gaat om de kernwoorden.'));
+  panel.append(recallForm(g,(r,{fb,acts,wrap})=>{
+    if(r.pass){fb.className='fb good';fb.textContent='Alle kernwoorden gevonden.';
+      acts.append(el('button',{class:'btn primary',type:'button',onclick:()=>finish(3,true,0)},'Vlak inkleuren'));
+      acts.lastChild.focus({preventScroll:true});
+    } else {
+      fb.className='fb badc';fb.textContent='Nog niet compleet. Rood ontbreekt nog. Vergelijk met het antwoord en probeer opnieuw.';
+      wrap.insertBefore(el('div',{class:'modelbox'},el('div',{class:'eyebrow'},'Het antwoord'),answerList(g)),acts);
+      acts.append(el('button',{class:'btn primary',type:'button',onclick:()=>renderTrain()},'Opnieuw, zonder te kijken'));
+    }
+  }));
+}
+
+/* ---- SPRINT ---- */
+function sprintIntro(){
+  show('sprint');
+  const box=$('#sprintbox');
+  box.replaceChildren(el('div',{class:'frame'},el('div',{class:'panel'},
+    el('h1',{class:'disp',style:'margin:0 0 10px;font-size:clamp(34px,6vw,60px)'},'Sprint'),
+    el('p',{style:'max-width:56ch;margin:0'},'Je hebt 60 seconden. Vragen uit alle lesdoelen komen door elkaar. Elk goed antwoord is 10 punten. Heb je er meer achter elkaar goed, dan krijg je bonuspunten.'),
+    el('p',{class:'score',style:'margin:16px 0 0'},'Jouw record: ',el('b',{},String(S.best||0))),
+    el('div',{class:'actions'},el('button',{class:'btn primary',type:'button',onclick:runSprint},'Start de sprint')))));
+  box.querySelector('.btn.primary').focus({preventScroll:true});
+}
+function runSprint(){
+  const box=$('#sprintbox');
+  const pool=sprintSources(); let bag=shuffle(pool);
+  let score=0,streak=0,answered=0,right=0; const misses=[];
+  const DUR=60; let left=DUR; const t0=Date.now();
+  const tfill=el('i'), timer=el('div',{class:'timer'},tfill);
+  const scoreEl=el('div',{class:'num'},'0'), streakEl=el('div',{class:'num'},'0');
+  const qbox=el('div',{class:'panel'});
+  box.replaceChildren(el('div',{class:'frame'},
+    el('div',{class:'sprinthead'},
+      el('div',{},el('div',{class:'small'},'Tijd'),timer),
+      el('div',{},el('div',{class:'small'},'Punten'),scoreEl),
+      el('div',{},el('div',{class:'small'},'Reeks'),streakEl)),
+    qbox));
+  let lock=false;
+  function next(){
+    if(left<=0) return;
+    if(!bag.length) bag=shuffle(pool);
+    const q=bag.pop()(); const g=BY[q.gid];
+    lock=false;
+    const btns=q.opts.map(o=>el('button',{type:'button',class:'opt'},o));
+    const fb=el('p',{class:'fb',role:'status'});
+    qbox.replaceChildren(el('div',{class:'eyebrow'},`Lesdoel ${g.n} · ${g.short}`),el('p',{class:'q',style:'margin-top:6px'},q.q),el('div',{class:'opts'},btns),fb);
+    btns.forEach((b,i)=>b.addEventListener('click',()=>{
+      if(lock||left<=0) return; lock=true; answered++;
+      btns.forEach(x=>x.disabled=true);
+      btns[q.a[0]].classList.add('right');
+      if(i===q.a[0]){right++;streak++;const bonus=Math.min(streak-1,5)*2;score+=10+bonus;fb.className='fb good';fb.textContent=bonus?`+${10+bonus} (reeks!)`:'+10';setTimeout(next,380)}
+      else{b.classList.add('wrong');streak=0;misses.push({gid:q.gid,q:q.q,a:q.opts[q.a[0]]});fb.className='fb badc';fb.textContent='Fout. Het juiste antwoord is groen.';setTimeout(next,1300)}
+      scoreEl.textContent=score; streakEl.textContent=streak;
+    }));
+  }
+  sprintTimer=setInterval(()=>{
+    left=Math.max(0,DUR-(Date.now()-t0)/1000);
+    tfill.style.width=(left/DUR*100)+'%';
+    timer.classList.toggle('low',left<10);
+    if(left<=0){clearInterval(sprintTimer);sprintTimer=null;endSprint()}
+  },100);
+  next();
+  function endSprint(){
+    const rec=score>(S.best||0); if(rec){S.best=score;save()}
+    const uniq=[...new Map(misses.map(m=>[m.gid,m])).values()];
+    const panel=el('div',{class:'panel'},
+      el('div',{class:'eyebrow'},'Tijd is om'),
+      el('div',{class:'big'},String(score)),
+      el('p',{class:'score',style:'margin:8px 0 0'},rec&&score>0?'Nieuw record!':`Record: ${S.best||0}`,` · ${right} van ${answered} goed`),
+      misses.length?el('div',{style:'margin-top:22px'},el('div',{class:'eyebrow'},'Deze lesdoelen gingen mis'),
+        el('ul',{class:'list'},uniq.map(m=>{const g=BY[m.gid];return el('li',{},el('span',{class:'sq',style:`--c:${cssC(g)}`}),el('div',{style:'flex:1'},el('strong',{},`${g.n} ${g.short}`),el('div',{style:'font-size:14px;color:var(--muted)'},`${m.q} → ${m.a}`)),el('button',{class:'btn',type:'button',style:'min-height:38px;padding:6px 12px',onclick:()=>openGoal(g.id,0)},'Oefen'))}))):el('p',{style:'margin-top:16px'},'Geen enkele fout.'),
+      el('div',{class:'actions'},el('button',{class:'btn primary',type:'button',onclick:runSprint},'Nog een sprint'),el('button',{class:'btn',type:'button',onclick:()=>show('home')},'Bekijk de compositie')));
+    box.replaceChildren(el('div',{class:'frame'},panel));
+    panel.querySelector('.btn.primary').focus({preventScroll:true});
+  }
+}
+
+/* ---- OVERHORING ---- */
+function examSetup(){
+  show('exam');
+  const box=$('#exambox');
+  const on={1:true,2:true,3:true,4:true,5:true};
+  const startBtn=el('button',{class:'btn primary',type:'button'});
+  const count=()=>GOALS.filter(g=>on[g.p]).length;
+  const upd=()=>{const n=count();startBtn.textContent=`Start overhoring (${n} lesdoelen)`;startBtn.disabled=!n};
+  const togs=Object.entries(PARS).map(([p,P])=>{
+    const t=el('button',{type:'button',class:'tog','aria-pressed':'true',style:`--c:${P.c}`},el('i'),`§${p} ${P.t}`);
+    t.addEventListener('click',()=>{on[p]=!on[p];t.setAttribute('aria-pressed',on[p]?'true':'false');upd()});
+    return t;
+  });
+  startBtn.addEventListener('click',()=>runExam(shuffle(GOALS.filter(g=>on[g.p]))));
+  upd();
+  box.replaceChildren(el('div',{class:'frame'},el('div',{class:'panel'},
+    el('h1',{class:'disp',style:'margin:0 0 10px;font-size:clamp(34px,6vw,60px)'},'Overhoring'),
+    el('p',{style:'max-width:60ch;margin:0'},'Je krijgt de lesdoelen in willekeurige volgorde. Schrijf bij elk lesdoel het antwoord op, zonder hulp. Heb je alle kernwoorden, dan kleurt dat vlak meteen helemaal in.'),
+    el('div',{class:'eyebrow',style:'margin-top:20px'},'Welke paragrafen?'),
+    el('div',{class:'toggles'},togs),
+    el('div',{class:'actions'},startBtn))));
+}
+function runExam(list){
+  const box=$('#exambox'); const results=[]; let i=0;
+  function one(){
+    if(i>=list.length) return endExam();
+    const g=list[i];
+    const panel=el('div',{class:'panel'});
+    panel.append(el('div',{class:'prog'},el('span',{},`Lesdoel ${i+1} van ${list.length}`),el('div',{class:'bar'},el('i',{style:`width:${i/list.length*100}%`})),el('span',{},`${results.filter(r=>r.pass).length} goed`)));
+    panel.append(el('div',{class:'eyebrow'},`${g.n} · Paragraaf ${g.p}`),el('p',{class:'q',style:'margin-top:6px'},g.goal));
+    if(g.recall.hint) panel.append(el('p',{class:'qhint'},g.recall.hint));
+    panel.append(recallForm(g,(r,{fb,acts,wrap})=>{
+      results.push({g,pass:r.pass});
+      if(r.pass){award(g.id,3);fb.className='fb good';fb.textContent='Goed. Dit vlak is nu helemaal ingekleurd.'}
+      else{fb.className='fb badc';fb.textContent='Nog niet compleet.';wrap.insertBefore(el('div',{class:'modelbox'},el('div',{class:'eyebrow'},'Het antwoord'),answerList(g)),acts)}
+      const nb=el('button',{class:'btn primary',type:'button',onclick:()=>{i++;one()}},i+1<list.length?'Volgend lesdoel':'Bekijk je uitslag');
+      acts.append(nb); nb.focus({preventScroll:true});
+    },{tag:'x'+i}));
+    box.replaceChildren(el('div',{class:'frame',style:`--c:${cssC(g)}`},el('div',{class:'ghead'},el('div',{class:'gcolor'+(PARS[g.p].lt?' lt':'')},g.n),el('div',{class:'gtext'},el('div',{class:'eyebrow'},PARS[g.p].t),el('h2',{},g.short))),panel));
+    window.scrollTo(0,0);
+  }
+  function endExam(){
+    const good=results.filter(r=>r.pass).length;
+    const panel=el('div',{class:'panel'},
+      el('div',{class:'eyebrow'},'Uitslag overhoring'),
+      el('div',{class:'big'},`${good}/${results.length}`),
+      el('p',{style:'margin:10px 0 0;max-width:56ch'},good===results.length?'Alles goed. Zo kun je de toets in.':'Oefen de lesdoelen met een kruisje nog eens. Begin bij lezen.'),
+      el('ul',{class:'list',style:'margin-top:18px'},results.map(r=>el('li',{},
+        el('span',{class:'sq',style:`--c:${cssC(r.g)}`}),
+        el('div',{style:'flex:1'},el('strong',{},`${r.g.n} ${r.g.short}`)),
+        el('span',{style:`font-weight:700;color:${r.pass?'var(--ok)':'var(--red)'}`},r.pass?'✓ goed':'✗ nog niet'),
+        r.pass?null:el('button',{class:'btn',type:'button',style:'min-height:38px;padding:6px 12px',onclick:()=>openGoal(r.g.id,0)},'Oefen')))),
+      el('div',{class:'actions'},el('button',{class:'btn primary',type:'button',onclick:examSetup},'Nieuwe overhoring'),el('button',{class:'btn',type:'button',onclick:()=>show('home')},'Bekijk de compositie')));
+    box.replaceChildren(el('div',{class:'frame'},panel));
+    window.scrollTo(0,0);
+  }
+  one();
+}
+
+/* ---- LEESLIJST ---- */
+function renderRead(){
+  show('read');
+  const box=$('#readbox'); box.replaceChildren();
+  Object.entries(PARS).forEach(([p,P])=>{
+    const sec=el('section',{class:'readsec',style:`--c:${P.c}`},el('h2',{},el('i'),`§${p} ${P.t}`));
+    GOALS.filter(g=>g.p==+p).forEach(g=>{
+      sec.append(el('div',{class:'rgoal'},
+        el('div',{class:'code'},g.n),
+        el('div',{},el('h3',{},g.goal),answerList(g),el('button',{class:'btn',type:'button',onclick:()=>openGoal(g.id)},lv(g.id)===3?'Nog eens oefenen':'Oefen dit lesdoel'))));
+    });
+    box.append(sec);
+  });
+}
+
+/* ---- TIJDLIJN ---- */
+// [sorteersleutel, datum zoals getoond, gebeurtenis]
+const TIMELINES=[
+ {id:'t1',p:1,title:'De moderne tijd in de 19de eeuw',ev:[
+  [1839,'1839','Eerste spoorlijn in Nederland: Amsterdam–Haarlem'],
+  [1844,'1844','Morse verstuurt het eerste telegraafbericht'],
+  [1851,'1851','Eerste wereldtentoonstelling, in Londen'],
+  [1871,'1871','Aletta Jacobs wordt de eerste vrouwelijke student in Nederland'],
+  [1884,'1884','Afspraken over tijdzones: Greenwich wordt het nulpunt'],
+  [1896,'1896','Eerste moderne Olympische Spelen, in Athene']]},
+ {id:'t2a',p:2,title:'Op weg naar de Eerste Wereldoorlog',ev:[
+  [1871,'1871','Duitsland verslaat Frankrijk en wordt één land'],
+  [1898,'1898','Duitsland begint met vlootopbouw (eerste vlootwet)'],
+  [1907,'1907','Engeland, Frankrijk en Rusland vormen de Triple Entente'],
+  [1914.06,'juni 1914','Moord op Frans Ferdinand in Sarajevo'],
+  [1914.07,'juli 1914','Oostenrijk-Hongarije verklaart Servië de oorlog'],
+  [1914.08,'augustus 1914','Begin van de Eerste Wereldoorlog']]},
+ {id:'t2b',p:2,title:'Het verloop van de oorlog',ev:[
+  [1914.08,'augustus 1914','Duitsland valt België binnen'],
+  [1914.09,'september 1914','Slag aan de Marne; de loopgravenoorlog begint'],
+  [1915,'1915','Eerste grote gifgasaanval, bij Ieper'],
+  [1916,'1916','Eerste tanks in de Slag aan de Somme'],
+  [1917.04,'april 1917','De VS doen mee aan de oorlog'],
+  [1918.11,'november 1918','Wapenstilstand']]},
+ {id:'t3',p:3,title:'Revolutie in Rusland',ev:[
+  [1905,'1905','Bloedige Zondag: soldaten schieten op betogers in Sint-Petersburg'],
+  [1914.08,'1914','Rusland gaat de Eerste Wereldoorlog in'],
+  [1917.03,'maart 1917','Februarirevolutie: de tsaar treedt af'],
+  [1917.11,'november 1917','Oktoberrevolutie: de bolsjewieken grijpen de macht'],
+  [1918.03,'maart 1918','Vrede van Brest-Litovsk: Rusland stopt met de oorlog'],
+  [1922,'1922','De Sovjet-Unie wordt opgericht']],
+  note:'Rusland gebruikte toen een andere kalender. Daarom heet de revolutie van maart 1917 de Februarirevolutie en die van november 1917 de Oktoberrevolutie.'},
+ {id:'t4',p:4,title:'De nieuwe kaart van Europa',ev:[
+  [1917.04,'april 1917','De VS doen mee aan de oorlog'],
+  [1918.01,'januari 1918','Wilson presenteert zijn veertien punten'],
+  [1918.11,'november 1918','Wapenstilstand'],
+  [1919.01,'januari 1919','De vredesconferentie in Parijs begint'],
+  [1919.06,'juni 1919','Duitsland tekent het Verdrag van Versailles'],
+  [1920,'1920','De Volkenbond wordt opgericht']]},
+ {id:'t5',p:5,title:'Neutraal Nederland',ev:[
+  [1914.07,'juli 1914','Nederland mobiliseert het leger'],
+  [1914.10,'oktober 1914','Honderdduizenden Belgische vluchtelingen komen naar Nederland'],
+  [1917,'1917','Kunstenaars van De Stijl beginnen hun tijdschrift'],
+  [1918.03,'maart 1918','Engeland en de VS leggen beslag op Nederlandse schepen'],
+  [1918.11,'november 1918','Keizer Wilhelm II vlucht naar Nederland'],
+  [1919,'1919','Vrouwen in Nederland krijgen kiesrecht']]},
+ {id:'m1',p:0,title:'Van wereldtentoonstelling tot Versailles',ev:[
+  [1851,'1851','Eerste wereldtentoonstelling, in Londen'],
+  [1871,'1871','Frankrijk verliest de oorlog tegen Duitsland'],
+  [1896,'1896','Eerste moderne Olympische Spelen'],
+  [1914.06,'juni 1914','Moord in Sarajevo'],
+  [1917.11,'november 1917','Oktoberrevolutie in Rusland'],
+  [1919.06,'juni 1919','Verdrag van Versailles']]},
+ {id:'m2',p:0,title:'Alle paragrafen door elkaar',ev:[
+  [1884,'1884','Afspraken over tijdzones'],
+  [1907,'1907','Triple Entente'],
+  [1915,'1915','Gifgasaanval bij Ieper'],
+  [1917.03,'maart 1917','Februarirevolutie in Rusland'],
+  [1918.01,'januari 1918','Wilson presenteert zijn veertien punten'],
+  [1922,'1922','Oprichting van de Sovjet-Unie']]},
+ {id:'m3',p:0,title:'Nederland en de wereld',ev:[
+  [1839,'1839','Eerste spoorlijn in Nederland'],
+  [1871,'1871','Aletta Jacobs gaat studeren'],
+  [1914.07,'juli 1914','Nederland mobiliseert het leger'],
+  [1917,'1917','De Stijl ontstaat'],
+  [1918.11,'november 1918','Keizer Wilhelm II vlucht naar Nederland'],
+  [1919,'1919','Vrouwen in Nederland krijgen kiesrecht']]},
+ {id:'m4',p:0,title:'Expert: de oorlogsjaren 1914–1918',ev:[
+  [1914.06,'juni 1914','Moord in Sarajevo'],
+  [1914.10,'oktober 1914','Belgische vluchtelingen komen naar Nederland'],
+  [1917.03,'maart 1917','Februarirevolutie in Rusland'],
+  [1917.04,'april 1917','De VS doen mee aan de oorlog'],
+  [1917.11,'november 1917','Oktoberrevolutie in Rusland'],
+  [1918.11,'november 1918','Wapenstilstand']]}
+];
+const TBY=Object.fromEntries(TIMELINES.map(t=>[t.id,t]));
+if(!S.tl||typeof S.tl!=='object') S.tl={};
+function randomTimeline(){
+  const seen=new Map();
+  TIMELINES.forEach(t=>t.ev.forEach(e=>{ if(!seen.has(e[2])) seen.set(e[2],e) }));
+  const byYear={};
+  shuffle([...seen.values()]).forEach(e=>{const y=Math.floor(e[0]); (byYear[y]||(byYear[y]=[])).push(e)});
+  const ev=shuffle(Object.keys(byYear)).slice(0,6).map(y=>byYear[y][0]);
+  return {id:'rnd',p:0,title:'Willekeurige tijdlijn',ev,random:true};
+}
+function tlColor(t){return t.p?{cls:'gcolor'+(PARS[t.p].lt?' lt':''),style:`--c:${PARS[t.p].c}`,txt:'§'+t.p}:{cls:'gcolor mix',style:'',txt:''}}
+function tlStatus(id){const s=S.tl[id];return s==='perfect'?'Foutloos ■':s==='done'?'Gehaald':'Nog niet gedaan'}
+
+function timeMenu(){
+  show('time');
+  const box=$('#timebox');
+  const item=t=>{const c=tlColor(t);return el('li',{},
+    el('span',{class:'sq'+(t.p?'':' mix'),style:c.style}),
+    el('div',{style:'flex:1'},el('strong',{},t.title),el('div',{style:'font-size:14px;color:var(--muted)'},(t.p?`Paragraaf ${t.p} · `:'')+tlStatus(t.id))),
+    el('button',{class:'btn',type:'button',style:'min-height:38px;padding:6px 12px',onclick:()=>playTimeline(t)},'Start'))};
+  box.replaceChildren(el('div',{class:'frame'},el('div',{class:'panel'},
+    el('h1',{class:'disp',style:'margin:0 0 10px;font-size:clamp(34px,6vw,60px)'},'Tijdlijn'),
+    el('p',{style:'max-width:60ch;margin:0'},'Zet zes gebeurtenissen in de juiste volgorde, van vroegst naar laatst. Na het controleren zie je de jaartallen.'),
+    el('div',{class:'actions'},el('button',{class:'btn primary',type:'button',onclick:()=>playTimeline(randomTimeline())},'Willekeurige tijdlijn uit alle paragrafen')),
+    el('div',{class:'eyebrow',style:'margin-top:26px'},'Per paragraaf'),
+    el('ul',{class:'list'},TIMELINES.filter(t=>t.p).map(item)),
+    el('div',{class:'eyebrow',style:'margin-top:26px'},'Alle onderwerpen samen'),
+    el('ul',{class:'list'},TIMELINES.filter(t=>!t.p).map(item)))));
+}
+
+function playTimeline(set){
+  show('time');
+  const box=$('#timebox');
+  const order=[...set.ev].sort((a,b)=>a[0]-b[0]);
+  let pool; do{pool=shuffle(order)}while(pool.every((e,i)=>e===order[i]));
+  const cards=pool.map(e=>{const c={e,used:false};c.el=el('button',{type:'button',class:'ev'},e[2]);c.el.addEventListener('click',()=>pick(c));return c});
+  const slots=order.map((_,i)=>{const s={c:null,locked:false,i};
+    s.place=el('button',{type:'button',class:'place'});s.place.addEventListener('click',()=>clickSlot(s));
+    s.yr=el('span',{class:'yr'});
+    s.el=el('li',{class:'slot empty'},el('span',{class:'nr'},String(i+1)),s.place,s.yr);return s});
+  let active=0,mistakes=0,busy=false;
+  const fb=el('p',{class:'fb',role:'status'});
+  const check=el('button',{class:'btn primary',type:'button',disabled:true},'Controleer');
+  const acts=el('div',{class:'actions'},check);
+  const poolBox=el('div',{class:'evpool'},el('div',{class:'eyebrow'},'Gebeurtenissen'),cards.map(c=>c.el));
+  const c=tlColor(set);
+  box.replaceChildren(el('div',{class:'frame'},
+    el('div',{class:'ghead'},el('div',{class:c.cls,style:c.style},c.txt),el('div',{class:'gtext'},el('div',{class:'eyebrow'},set.p?`Tijdlijn · Paragraaf ${set.p}`:'Tijdlijn · Alle onderwerpen'),el('h2',{},set.title))),
+    el('div',{class:'panel'},
+      el('p',{class:'qhint'},'Klik op een gebeurtenis om hem op de gele plek te zetten. Klik op een geplaatste gebeurtenis om hem terug te halen.'),
+      el('div',{class:'tlwrap'},
+        el('div',{},el('p',{class:'tlend'},'Vroegst'),el('ol',{class:'tl'},slots.map(s=>s.el)),el('p',{class:'tlend',style:'margin:6px 0 0'},'Laatst')),
+        poolBox),
+      fb,acts)));
+  const firstEmpty=()=>slots.findIndex(s=>!s.c&&!s.locked);
+  function refresh(){
+    slots.forEach((s,i)=>{
+      s.place.textContent=s.c?s.c.e[2]:'Kies een gebeurtenis';
+      s.el.classList.toggle('empty',!s.c);
+      s.el.classList.toggle('active',i===active&&!s.locked&&!busy);
+    });
+    cards.forEach(k=>{k.el.hidden=k.used;k.el.disabled=busy});
+    check.disabled=busy||slots.some(s=>!s.c);
+  }
+  function pick(k){
+    if(k.used||busy) return;
+    let i=active; if(i<0||slots[i].c||slots[i].locked) i=firstEmpty(); if(i<0) return;
+    slots[i].c=k;k.used=true;active=firstEmpty();refresh();
+  }
+  function clickSlot(s){
+    if(s.locked||busy) return;
+    if(s.c){s.c.used=false;s.c=null}
+    active=s.i;refresh();
+  }
+  check.addEventListener('click',()=>{
+    let wrong=0;
+    slots.forEach(s=>{
+      if(s.locked) return;
+      if(s.c.e===order[s.i]){s.locked=true;s.el.classList.add('ok');s.yr.textContent=s.c.e[1]}
+      else{wrong++;s.el.classList.add('bad')}
+    });
+    if(!wrong){
+      busy=true;refresh();check.remove();poolBox.hidden=true;
+      if(!set.random){const prev=S.tl[set.id];S.tl[set.id]=(!mistakes||prev==='perfect')?'perfect':'done';save()}
+      fb.className='fb good';fb.textContent=mistakes?`Klaar, met ${mistakes} ${mistakes===1?'gebeurtenis':'gebeurtenissen'} eerst op de verkeerde plek.`:'Foutloos!';
+      if(set.note) fb.after(el('p',{class:'tlnote'},set.note));
+      const i=TIMELINES.findIndex(t=>t.id===set.id);
+      const nxt=set.random?randomTimeline():TIMELINES[(i+1)%TIMELINES.length];
+      acts.append(
+        el('button',{class:'btn primary',type:'button',onclick:()=>playTimeline(nxt)},set.random?'Nog een willekeurige':'Volgende tijdlijn'),
+        el('button',{class:'btn',type:'button',onclick:()=>playTimeline(set.random?set:TBY[set.id])},'Deze opnieuw'),
+        el('button',{class:'btn',type:'button',onclick:timeMenu},'Alle tijdlijnen'));
+      acts.querySelector('.btn').focus({preventScroll:true});
+      return;
+    }
+    mistakes+=wrong;busy=true;refresh();
+    fb.className='fb badc';fb.textContent=`${wrong} ${wrong===1?'gebeurtenis staat':'gebeurtenissen staan'} op de verkeerde plek. Die gaan terug. De groene staan goed.`;
+    setTimeout(()=>{
+      slots.forEach(s=>{if(!s.locked&&s.c){s.c.used=false;s.c=null;s.el.classList.remove('bad')}});
+      busy=false;active=firstEmpty();refresh();
+    },1400);
+  });
+  refresh();
+}
+
+renderHome();
+</script>
+
+</body>
+</html>
